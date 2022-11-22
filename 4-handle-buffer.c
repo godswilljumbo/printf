@@ -1,20 +1,36 @@
 #include "main.h"
 
 /**
- * handl_buf - concatenates the buffer characters
- * @buf: buffer pointer
- * @c: charcter to concatenate
- * @ibuf: index of buffer pointer
- * Return: index of buffer pointer.
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-unsigned int handl_buf(char *buf, char c, unsigned int ibuf)
+int _putchar(char c)
 {
-	if (ibuf == 1024)
+	return (buffer(c));
+}
+
+/**
+ * buffer - Save the character in a buffer
+ * @c: Character
+ *
+ * Return: 1
+ **/
+int buffer(char c)
+{
+	static char buffering[1024];
+	static int i;
+
+	if (c == -1 || i == 1024)
 	{
-		print_buf(buf, ibuf);
-		ibuf = 0;
+		write(1, buffering, i);
+		i = 0;
 	}
-	buf[ibuf] = c;
-	ibuf++;
-	return (ibuf);
+
+	if (c != -1)
+		buffering[i++] = c;
+
+	return (1);
 }
