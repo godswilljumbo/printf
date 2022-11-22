@@ -1,51 +1,41 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-/* utils.c */
-int _strlen(const char *);
-int print(char *);
-char *itoa(long int, int);
-
-/* printf.c */
-int _printf(const char *, ...);
-
-/* handler.c */
-int handler(const char *, va_list);
-int percent_handler(const char *, va_list, int *);
-
-/* printers */
-int print_string(va_list);
-int print_char(va_list);
-int print_buf(va_list);
-int print_integer(va_list);
-int print_binary(va_list);
-int print_rot(va_list);
-int print_unsigned(va_list);
-int print_octal(va_list);
-int print_hexadecimal_low(va_list);
-int print_hexadecimal_upp(va_list);
-int print_pointer(va_list);
-int print_rev_string(va_list);
-
-/* _putchar.c */
-int _putchar(char);
-int buffer(char);
 
 /**
- * struct _format - Typedef struct
- *
- * @type: Format
- * @f: The function associated
- **/
-typedef struct _format
-{
-	char type;
-	int (*f)(va_list);
-} format;
+ * struct print_struct - structure for printing various types
+ * @t: type to print
+ * @f: function to print
+ */
 
+typedef struct print_struct
+{
+	char *t;
+	int (*f)(va_list);
+} print_type;
+
+
+int _printf(const char *format, ...);
+int _putchar(char c);
+int print_c(va_list c);
+int print_s(va_list s);
+int print_i(va_list i);
+int print_d(va_list d);
+int print_b(va_list b);
+int print_u(va_list u);
+int print_o(va_list o);
+int print_x(va_list x);
+int print_X(va_list X);
+int print_S(va_list S);
+int print_p(va_list p);
+int (*check_specifier(const char *format))(va_list);
+int print_hex(unsigned int n, unsigned int c);
+int hex_print(char c);
+int print_r(va_list r);
+int print_R(va_list R);
 
 #endif
