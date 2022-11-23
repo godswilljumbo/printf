@@ -1,49 +1,33 @@
 #include "main.h"
 
 /**
- *  _printf - prints %c and %s format specifier
- *  @format: format string
- *  Return: number of printed charaters
+ * _printf - print a char or a string
+ * @format: It's a character string
+ * Return: the number of character the function is printing
  */
-
 int _printf(const char *format, ...)
 {
-	unsigned int i = 0, count = 0;
-	va_list valist;
-	int (*f)(va_list);
+	pr_fmt pr_format[] = {
+		{"c", char_func},
+		{"s", str_func},
+		{"%", func_percent},
+		{"d", dig_func},
+		{"i", dig_func},
+		{"b", func_binary_convert},
+		{"u", func_unsig_int},
+		{"o", func_octal_convert},
+		{"x", func_hex_Lowcase_convert},
+		{"X", func_hex_Upcase_convert},
+		{"S", func_stringUppercase},
+		{"r", func_revstr},
+		{"R", func_rot13},
+		{NULL, NULL}};
 
-	if (format == NULL)
-		return (-1);
+	va_list list;
+	int count = 0;
 
-	va_start(valist, format);
-
-	while (format[i])
-	{
-		for (; format[i] != '%' && format[i]; i++)
-		{
-			_putchar(format[i]);
-			count++;
-		}
-
-		if (!format[i])
-			return (count);
-
-		f = check_specifier(&format[i + 1]);
-		if (f != NULL)
-		{
-			count += f(valist);
-			i += 2;
-			continue;
-		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		count++;
-		if (format[i + 1] == '%')
-			i += 2;
-		else
-			i++;
-	}
-	va_end(valist);
+	va_start(list, format);
+	count =	get_func(format, list, pr_format);
+	va_end(list);
 	return (count);
 }

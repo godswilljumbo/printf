@@ -1,41 +1,39 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
-
+#include <unistd.h>
+#include <limits.h>
+#include <stdio.h>
 
 /**
- * struct print_struct - structure for printing various types
- * @t: type to print
- * @f: function to print
+ * struct pr_fmt - the struct by name pr_fmt
+ * @fmt: index by function
+ * @func: pointer to function - funtion print
  */
 
-typedef struct print_struct
+typedef struct pr_fmt
 {
-	char *t;
-	int (*f)(va_list);
-} print_type;
+	char *fmt;
+	int (*func)(va_list list);
+} pr_fmt;
 
-
-int _printf(const char *format, ...);
 int _putchar(char c);
-int print_c(va_list c);
-int print_s(va_list s);
-int print_i(va_list i);
-int print_d(va_list d);
-int print_b(va_list b);
-int print_u(va_list u);
-int print_o(va_list o);
-int print_x(va_list x);
-int print_X(va_list X);
-int print_S(va_list S);
-int print_p(va_list p);
-int (*check_specifier(const char *format))(va_list);
-int print_hex(unsigned int n, unsigned int c);
-int hex_print(char c);
-int print_r(va_list r);
-int print_R(va_list R);
+int get_func(const char *format, va_list list, pr_fmt pr_format[]);
+int _printf(const char *format, ...);
+int str_func(va_list);
+int char_func(va_list);
+int func_percent(va_list);
+int dig_func(va_list);
+int func_binary_convert(va_list);
+int func_octal_convert(va_list);
+int func_hex_Upcase_convert(va_list);
+int func_hex_Lowcase_convert(va_list);
+int binary_oct_hex_convert(unsigned int, int, int);
+int func_unsig_int(va_list list);
+int func_stringUppercase(va_list list);
+int func_revstr(va_list list);
+int func_rot13(va_list);
 
-#endif
+#endif /* MAIN_H */
